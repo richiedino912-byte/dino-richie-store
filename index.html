@@ -275,7 +275,7 @@ window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank"
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
@@ -307,7 +307,7 @@ googleLoginBtn.addEventListener("click", async () => {
   if (auth.currentUser) {
     await signOut(auth);
   } else {
-    await signInWithRedirect(auth, provider);
+    await signInWithPopup(auth, provider);
   }
 });
 
