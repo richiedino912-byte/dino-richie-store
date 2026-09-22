@@ -32,10 +32,17 @@
       padding: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow-x: auto;
+      margin-bottom: 20px;
     }
 
-    h2 {
-      margin-top: 0;
+    button {
+      background: #111;
+      color: white;
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
     }
 
     table {
@@ -68,47 +75,261 @@
       color: #111;
       font-weight: bold;
     }
+
+    #loginBox {
+      text-align: center;
+    }
+
+    #ordersBox {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🛍️ DINO RICHIE STORE</h1>
-    <p>Orders Dashboard</p>
-  </header>
+<header>
+  <h1>🛍️ DINO RICHIE STORE</h1>
+  <p>Owner Orders Dashboard</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <a class="back" href="index.html">← Back to Store</a>
+  <a class="back" href="index.html">← Back to Store</a>
 
-    <div class="card">
-      <h2>📦 Customer Orders</h2>
+  <div class="card" id="loginBox">
+    <h2>🔐 Owner Login</h2>
+    <p id="loginStatus">Please sign in with your Google account.</p>
+    <button id="googleLoginBtn">Sign in with Google</button>
+  </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>Delivery Location</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+  <div class="card" id="ordersBox">
 
-        <tbody>
+    <h2>📦 Customer Orders</h2>
+
+    <p id="ownerStatus"></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Delivery Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="ordersTable">
+        <tr>
+          <td colspan="6" class="empty">
+            Loading orders...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+  /* YOUR FIREBASE CONFIG GOES HERE */
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyABC123456789"
+      
+    authDomain: "dino-richie-store-1c8e0.firebaseapp.com",
+    projectId: "dino-richie-store-1c8e0",
+    storageBucket: "dino-richie-store-1c8e0.firebasestorage.app",
+    messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
+    appId: "PASTE_YOUR_APP_ID_HERE"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const provider = new GoogleAuthProvider();
+
+  const googleLoginBtn =
+    document.getElementById("googleLoginBtn");
+
+  const loginStatus =
+    document.getElementById("loginStatus");
+
+  const loginBox =
+    document.getElementById("loginBox");
+
+  const ordersBox =
+    document.getElementById("ordersBox");
+
+  const ownerStatus =
+    document.getElementById("ownerStatus");
+
+  const ordersTable =
+    document.getElementById("ordersTable");
+
+
+  googleLoginBtn.addEventListener("click", async () => {
+
+    try {
+
+      if (auth.currentUser) {
+
+        await signOut(auth);
+
+      } else {
+
+        await signInWithPopup(auth, provider);
+
+      }
+
+    } catch (error) {
+
+      loginStatus.textContent =
+        "Login error: " + error.message;
+
+    }
+
+  });
+
+
+  async function loadOrders() {
+
+    ordersTable.innerHTML = `
+      <tr>
+        <td colspan="6" class="empty">
+          Loading orders...
+        </td>
+      </tr>
+    `;
+
+    try {
+
+      const snapshot =
+        await getDocs(collection(db, "orders"));
+
+      if (snapshot.empty) {
+
+        ordersTable.innerHTML = `
           <tr>
             <td colspan="6" class="empty">
               No orders yet.
             </td>
           </tr>
-        </tbody>
-      </table>
+        `;
 
-    </div>
+        return;
+      }
 
-  </div>
+
+      ordersTable.innerHTML = "";
+
+
+      snapshot.forEach((doc) => {
+
+        const order = doc.data();
+
+        const row =
+          document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${order.customerName || "-"}</td>
+          <td>${order.product || "-"}</td>
+          <td>${order.quantity || "-"}</td>
+          <td>${order.amount || "-"}</td>
+          <td>${order.deliveryLocation || "-"}</td>
+          <td>${order.status || "Pending"}</td>
+        `;
+
+        ordersTable.appendChild(row);
+
+      });
+
+    } catch (error) {
+
+      ordersTable.innerHTML = `
+        <tr>
+          <td colspan="6" class="empty">
+            Could not load orders.
+          </td>
+        </tr>
+      `;
+
+      console.error(error);
+
+    }
+
+  }
+
+
+  onAuthStateChanged(auth, (user) => {
+
+    if (user) {
+
+      if (user.email === "yekinniahmed356@gmail.com") {
+
+        loginBox.style.display = "none";
+        ordersBox.style.display = "block";
+
+        ownerStatus.textContent =
+          "Signed in as " + user.email;
+
+        googleLoginBtn.textContent =
+          "🚪 Sign out";
+
+        loadOrders();
+
+      } else {
+
+        loginStatus.textContent =
+          "This Google account is not authorized to view orders.";
+
+        googleLoginBtn.textContent =
+          "🚪 Sign out";
+
+      }
+
+    } else {
+
+      loginBox.style.display = "block";
+      ordersBox.style.display = "none";
+
+      loginStatus.textContent =
+        "Please sign in with your Google account.";
+
+      googleLoginBtn.textContent =
+        "🔐 Sign in with Google";
+
+    }
+
+  });
+
+</script>
 
 </body>
 </html>
