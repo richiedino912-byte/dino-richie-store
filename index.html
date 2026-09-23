@@ -83,7 +83,13 @@ select{width:100%;padding:13px;margin:15px 0;border-radius:6px}
 
 <section id="products">
 <h2>🔥 Products Available For Sale</h2>
-
+<input
+  type="text"
+  id="productSearch"
+  placeholder="🔎 Search products..."
+  onkeyup="searchProducts()"
+  style="width:90%; padding:12px; margin:15px auto; display:block; border-radius:8px; border:1px solid #ccc;"
+>
 <div class="grid">
 
 <div class="card">
@@ -265,6 +271,15 @@ const phone="2349169688476";
 const message="Hello DINO RICHIE STORE! I am interested in: "+product+". Please send me more information.";
 window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
 }
+  function searchProducts() {
+  const input = document.getElementById("productSearch").value.toLowerCase().trim();
+  const cards = document.querySelectorAll("#products .card");
+
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(input) ? "" : "none";
+  });
+  }
 </script>
 <script type="module">
   // Import the functions you need from the SDKs you need
