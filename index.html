@@ -4,198 +4,227 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dino Richie Store</title>
-    <!-- Tailwind CSS CDN for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800 pb-16">
+<body class="bg-gray-50 font-sans text-gray-900 pb-20">
 
-    <!-- Top Navigation Bar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-            <h1 class="font-extrabold text-orange-500 text-sm tracking-wide">DINO RICHIE STORE</h1>
-            <div class="flex items-center gap-2">
-                <a href="#cart" class="relative text-gray-700">
-                    🛒 <span id="cartBadge" class="absolute -top-2 -right-2 bg-orange-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                </a>
-                <a href="tel:02018883300" class="text-[10px] bg-orange-50 text-orange-600 px-2 py-1 rounded font-bold">Call to Order</a>
+    <!-- Top Header Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <h1 class="font-extrabold text-orange-600 text-lg sm:text-xl tracking-tight">DINO RICHIE STORE</h1>
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                    <button onclick="filterCategory('all')" class="text-orange-600 font-bold">Home / All</button>
+                    <button onclick="filterCategory('barbing')" class="hover:text-orange-600">Barbing Tools</button>
+                    <button onclick="filterCategory('hair')" class="hover:text-orange-600">Hair & Wigs</button>
+                    <button onclick="filterCategory('fashion')" class="hover:text-orange-600">Fashion</button>
+                    <button onclick="filterCategory('gadgets')" class="hover:text-orange-600">Gadgets</button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="tel:08023589140" class="hidden sm:inline-block text-xs bg-orange-50 text-orange-700 px-3 py-2 rounded-lg font-bold border border-orange-200">📞 Call: 08023589140</a>
+                <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20want%20to%20make%20an%20enquiry%20about%20your%20store." target="_blank" class="hidden sm:inline-block text-xs bg-green-50 text-green-700 px-3 py-2 rounded-lg font-bold border border-green-200">💬 WhatsApp</a>
+                <div class="relative bg-gray-100 p-2.5 rounded-full hover:bg-gray-200 text-gray-700 cursor-pointer" onclick="openCartModal()">
+                    🛒 <span id="cartBadge" class="absolute -top-1 -right-1 bg-orange-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </div>
             </div>
         </div>
-        <!-- Search Bar -->
-        <div class="px-4 pb-3 max-w-md mx-auto">
-            <div class="relative">
-                <input type="text" placeholder="Search hair, clippers, shoes, gadgets..." class="w-full bg-gray-100 pl-8 pr-3 py-2 rounded text-xs focus:outline-none focus:ring-1 focus:ring-orange-500">
-                <span class="absolute left-2.5 top-2.5 text-gray-400 text-xs">🔍</span>
+        <!-- Search Bar Row -->
+        <div class="bg-white px-4 py-3 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto">
+                <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products across all categories..." class="w-full bg-gray-100 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
             </div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto p-3 space-y-4">
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
 
-        <!-- CATEGORIES SECTION -->
-        <section class="bg-white p-3 rounded shadow-sm">
-            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Shop By Category</h2>
-            <div class="grid grid-cols-4 gap-2 text-center text-[11px]">
-                <div class="p-2 bg-gray-50 rounded cursor-pointer hover:bg-orange-50">
-                    <div class="text-base mb-1">✂️</div>
-                    <span class="font-medium">Barbing</span>
+        <!-- CATEGORIES SELECTOR BUTTONS -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Shop By Category (Click to Filter)</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
+                <div onclick="filterCategory('all')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                    📂 All Products
                 </div>
-                <div class="p-2 bg-gray-50 rounded cursor-pointer hover:bg-orange-50">
-                    <div class="text-base mb-1">💇‍♀️</div>
-                    <span class="font-medium">Hair</span>
+                <div onclick="filterCategory('barbing')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                    ✂️ Barbing Tools
                 </div>
-                <div class="p-2 bg-gray-50 rounded cursor-pointer hover:bg-orange-50">
-                    <div class="text-base mb-1">👕</div>
-                    <span class="font-medium">Fashion</span>
+                <div onclick="filterCategory('hair')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                    💇‍♀️ Hair & Wigs
                 </div>
-                <div class="p-2 bg-gray-50 rounded cursor-pointer hover:bg-orange-50">
-                    <div class="text-base mb-1">📱</div>
-                    <span class="font-medium">Gadgets</span>
+                <div onclick="filterCategory('fashion')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                    👕 Fashion
+                </div>
+                <div onclick="filterCategory('gadgets')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                    📱 Gadgets
                 </div>
             </div>
         </section>
 
-        <!-- PRODUCTS GRID WITH PROFIT & SHIPPING CALCULATION -->
+        <!-- PRODUCTS GRID -->
         <section>
-            <div class="flex justify-between items-center mb-2">
-                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Flash Sales & Products</h2>
-                <span class="text-orange-500 text-xs font-bold">See All ></span>
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="sectionTitle" class="text-lg font-bold text-gray-900">All Available Products</h2>
             </div>
 
-            <div class="grid grid-cols-2 gap-2">
-                
-                <!-- Product Card 1 -->
-                <div class="bg-white p-2 rounded shadow-sm border flex flex-col justify-between">
-                    <div>
-                        <span class="bg-gray-100 text-gray-600 px-1 py-0.5 rounded text-[9px] font-bold">Barbing Tools</span>
-                        <h3 class="font-medium text-xs text-gray-800 mt-1 line-clamp-2">Professional Heavy Duty Cordless Hair Clipper</h3>
-                        <div class="flex items-center text-orange-400 text-[10px] my-1">
-                            ★★★★☆ <span class="text-gray-400 ml-1">(143)</span>
-                        </div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="font-bold text-xs text-gray-900">₦32,500</span>
-                            <span class="text-gray-400 line-through text-[10px]">₦45,000</span>
-                        </div>
-                        <!-- Internal Profit Margin View -->
-                        <div class="text-[9px] text-gray-400 bg-gray-50 p-1 rounded mt-1">
-                            <span>Cost: ₦25k</span> | <span class="text-green-600 font-bold">Profit: ₦7.5k</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-[10px] text-gray-500 mt-1 border-t pt-1">
-                            + shipping from <strong class="text-gray-700">₦3,500</strong>
-                        </div>
-                        <button onclick="addToCart('Professional Clipper', 32500)" class="w-full mt-2 bg-orange-500 text-white py-1 rounded font-bold text-[11px] uppercase shadow-sm">Order Now</button>
-                    </div>
-                </div>
-
-                <!-- Product Card 2 -->
-                <div class="bg-white p-2 rounded shadow-sm border flex flex-col justify-between">
-                    <div>
-                        <span class="bg-gray-100 text-gray-600 px-1 py-0.5 rounded text-[9px] font-bold">Hair</span>
-                        <h3 class="font-medium text-xs text-gray-800 mt-1 line-clamp-2">Luxury 24 Inches Super Bone Straight Human Hair Wig</h3>
-                        <div class="flex items-center text-orange-400 text-[10px] my-1">
-                            ★★★★★ <span class="text-gray-400 ml-1">(89)</span>
-                        </div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="font-bold text-xs text-gray-900">₦85,000</span>
-                            <span class="text-gray-400 line-through text-[10px]">₦120,000</span>
-                        </div>
-                        <!-- Internal Profit Margin View -->
-                        <div class="text-[9px] text-gray-400 bg-gray-50 p-1 rounded mt-1">
-                            <span>Cost: ₦65k</span> | <span class="text-green-600 font-bold">Profit: ₦20k</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-[10px] text-gray-500 mt-1 border-t pt-1">
-                            + shipping from <strong class="text-gray-700">₦4,500</strong>
-                        </div>
-                        <button onclick="addToCart('Bone Straight Wig', 85000)" class="w-full mt-2 bg-orange-500 text-white py-1 rounded font-bold text-[11px] uppercase shadow-sm">Order Now</button>
-                    </div>
-                </div>
-
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products loaded dynamically -->
             </div>
         </section>
 
-        <!-- CUSTOMER ACCOUNT HUB -->
-        <section class="bg-white rounded shadow-sm overflow-hidden">
-            <div class="p-3 bg-gray-50 border-b flex items-center justify-between">
+        <!-- CUSTOMER ACCOUNT HUB & SUPPORT -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <section class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm text-gray-900">Customer Account Hub</h3>
+                        <p class="text-gray-500 text-xs">My Account Dashboard</p>
+                    </div>
+                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold text-xs">VIP CUSTOMER</span>
+                </div>
+
+                <div class="divide-y divide-gray-100 text-sm">
+                    <button onclick="openModal('My Orders', 'You have 0 active orders in progress.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                        <span class="font-medium text-gray-700">📦 My Orders</span>
+                        <span class="text-gray-400 text-xs">0 in progress ></span>
+                    </button>
+                    <button onclick="openModal('Inbox', 'You have no new notifications.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                        <span class="font-medium text-gray-700">📥 Messages & Inbox</span>
+                        <span class="text-gray-400 text-xs">></span>
+                    </button>
+                    <button onclick="openModal('Pending Reviews', 'No items pending review right now.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                        <span class="font-medium text-gray-700">⭐ My Reviews & Ratings</span>
+                        <span class="text-gray-400 text-xs">></span>
+                    </button>
+                    <button onclick="openModal('Vouchers', 'Available Vouchers: Use code DINO1K for discounts.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                        <span class="font-medium text-gray-700">🎟️ My Vouchers</span>
+                        <span class="text-gray-400 text-xs">1 Available ></span>
+                    </button>
+                    <button onclick="openModal('Wishlist', 'Your saved wishlist items will appear here.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                        <span class="font-medium text-gray-700">❤️ My Wishlist</span>
+                        <span class="text-gray-400 text-xs">View saved ></span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Help & Support -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col justify-between">
                 <div>
-                    <h3 class="font-bold text-xs">Dino Richie</h3>
-                    <p class="text-gray-400 text-[10px]">VIP Customer</p>
+                    <h3 class="font-bold text-sm text-gray-900 uppercase tracking-wider mb-4">Customer Support</h3>
+                    <div class="space-y-3 text-sm">
+                        <a href="tel:08023589140" class="block p-3 bg-orange-50 text-orange-700 font-semibold rounded-xl border border-orange-100 text-center">📞 Call Support: 08023589140</a>
+                        <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20need%20support%20with%20my%20order." target="_blank" class="block p-3 bg-green-50 text-green-700 font-semibold rounded-xl border border-green-100 text-center">💬 WhatsApp Support</a>
+                    </div>
                 </div>
-                <span class="bg-orange-100 text-orange-600 px-2 py-0.5 rounded font-bold text-[9px]">ACTIVE</span>
-            </div>
-
-            <div class="divide-y divide-gray-100 text-xs">
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">📦 Orders</span>
-                    <span class="text-gray-400 text-[11px]">0 in progress ></span>
-                </a>
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">📥 Inbox</span>
-                    <span class="bg-orange-500 text-white rounded-full px-1.5 py-0.2 text-[9px]">2</span>
-                </a>
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">⭐ Pending Reviews & Ratings</span>
-                    <span class="text-gray-400 text-[11px]">></span>
-                </a>
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">🎟️ Vouchers</span>
-                    <span class="text-gray-400 text-[11px]">3 Available ></span>
-                </a>
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">❤️ Wishlist</span>
-                    <span class="text-gray-400 text-[11px]">5 Items ></span>
-                </a>
-                <a href="#" class="flex items-center justify-between p-3 hover:bg-gray-50">
-                    <span class="font-medium">👥 Followed Sellers</span>
-                    <span class="text-gray-400 text-[11px]">2 Stores ></span>
-                </a>
-            </div>
-        </section>
-
-        <!-- HELP & SUPPORT SECTION -->
-        <section class="bg-white rounded shadow-sm p-3 text-xs">
-            <div class="font-bold text-gray-400 uppercase tracking-wider mb-2 text-[10px]">Settings & Support</div>
-            <a href="tel:02018883300" class="block p-2 text-blue-600 font-medium border-b border-gray-50">📞 Call to Order / Support: 02018883300</a>
-            <a href="#" class="block p-2 text-gray-700 border-b border-gray-50">Help Center & Live Chat</a>
-            <a href="#" class="block p-2 text-red-500 font-medium">Log Out</a>
-        </section>
-
+                <div class="mt-6 pt-4 border-t border-gray-100">
+                    <button onclick="alert('Logged out successfully.')" class="w-full text-red-600 font-semibold text-center text-sm">Log Out</button>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t py-2 px-4 shadow-lg max-w-md mx-auto flex justify-around text-center text-[10px] text-gray-600 z-50">
-        <a href="#" class="text-orange-500 font-bold">
-            <div class="text-sm">🏠</div>
-            Home
-        </a>
-        <a href="#" class="hover:text-orange-500">
-            <div class="text-sm">📑</div>
-            Categories
-        </a>
-        <a href="#" class="hover:text-orange-500 relative">
-            <div class="text-sm">🛒</div>
-            Cart
-        </a>
-        <a href="#" class="hover:text-orange-500">
-            <div class="text-sm">📦</div>
-            Orders
-        </a>
-        <a href="#" class="hover:text-orange-500">
-            <div class="text-sm">👤</div>
-            Account
-        </a>
-    </nav>
+    <!-- INTERACTIVE POPUP MODAL -->
+    <div id="customModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl">
+            <h3 id="modalTitle" class="text-lg font-bold text-gray-900 mb-2">Notice</h3>
+            <p id="modalBody" class="text-sm text-gray-600 mb-6">Details here...</p>
+            <button onclick="closeModal()" class="w-full bg-orange-600 text-white py-2.5 rounded-xl font-bold text-sm">Close</button>
+        </div>
+    </div>
 
     <script>
-        let cartCount = 3;
-        function addToCart(productName, price) {
+        const products = [
+            { id: 1, name: "Professional Heavy Duty Cordless Hair Clipper", category: "barbing", price: 32500, oldPrice: 45000, shipping: 3500, rating: "★★★★☆ (143)", image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60" },
+            { id: 2, name: "Professional Barber Cape & Neck Duster Set", category: "barbing", price: 8500, oldPrice: 12000, shipping: 2000, rating: "★★★★★ (52)", image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&auto=format&fit=crop&q=60" },
+            { id: 3, name: "Luxury 24 Inches Super Bone Straight Human Hair Wig", category: "hair", price: 85000, oldPrice: 120000, shipping: 4500, rating: "★★★★★ (89)", image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&auto=format&fit=crop&q=60" },
+            { id: 4, name: "Natural Curly Water Wave Human Hair Bundle", category: "hair", price: 45000, oldPrice: 60000, shipping: 3500, rating: "★★★★☆ (34)", image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&auto=format&fit=crop&q=60" },
+            { id: 5, name: "Men's Luxury Designer Casual Sneaker Shoes", category: "fashion", price: 28000, oldPrice: 40000, shipping: 3000, rating: "★★★★★ (67)", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" },
+            { id: 6, name: "Classic Men's Formal Office Suit & Blazer", category: "fashion", price: 55000, oldPrice: 75000, shipping: 4000, rating: "★★★★☆ (28)", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&auto=format&fit=crop&q=60" },
+            { id: 7, name: "Ultra-Fast Wireless Power Bank 20000mAh", category: "gadgets", price: 18500, oldPrice: 25000, shipping: 2500, rating: "★★★★★ (110)", image: "https://images.unsplash.com/photo-1609592424104-16d7d5cb4f71?w=500&auto=format&fit=crop&q=60" },
+            { id: 8, name: "Wireless Bluetooth Bass Stereo Earbuds", category: "gadgets", price: 12000, oldPrice: 18000, shipping: 2000, rating: "★★★★☆ (95)", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60" }
+        ];
+
+        let cartCount = 0;
+
+        function displayProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            if(items.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No products found in this category.</p>';
+                return;
+            }
+
+            items.forEach(p => {
+                const whatsappMsg = encodeURIComponent(`Hello Dino Richie, I want to order:\n\n*${p.name}*\nPrice: ₦${p.price.toLocaleString()}\nShipping: ₦${p.shipping.toLocaleString()}\n\nPlease guide me on delivery and payment.`);
+                
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
+                                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+                                <span class="absolute top-2 left-2 bg-black bg-opacity-60 text-white px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${p.category}</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-sm text-gray-900 line-clamp-2 h-10">${p.name}</h3>
+                                <div class="text-orange-400 text-xs my-1">${p.rating}</div>
+                                <div class="flex items-baseline gap-2 mt-2">
+                                    <span class="font-bold text-base text-gray-900">₦${p.price.toLocaleString()}</span>
+                                    <span class="text-gray-400 line-through text-xs">₦${p.oldPrice.toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 space-y-2">
+                            <div class="text-xs text-gray-500 border-t pt-2 mb-2">
+                                Shipping from <strong class="text-gray-700">₦${p.shipping.toLocaleString()}</strong>
+                            </div>
+                            <a href="https://wa.me/2349169688476?text=${whatsappMsg}" target="_blank" onclick="incrementCart()" class="block text-center w-full bg-green-600 text-white py-2 rounded-xl font-bold text-xs uppercase shadow hover:bg-green-700 transition">💬 Order via WhatsApp</a>
+                            <a href="tel:08023589140" onclick="incrementCart()" class="block text-center w-full bg-orange-600 text-white py-2 rounded-xl font-bold text-xs uppercase shadow hover:bg-orange-700 transition">📞 Call to Order: 08023589140</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCategory(cat) {
+            document.getElementById('sectionTitle').innerText = cat === 'all' ? 'All Available Products' : cat.toUpperCase() + ' PRODUCTS';
+            if(cat === 'all') {
+                displayProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                displayProducts(filtered);
+            }
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const results = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            displayProducts(results);
+        }
+
+        function incrementCart() {
             cartCount++;
             document.getElementById('cartBadge').innerText = cartCount;
-            alert(productName + " added to your cart successfully!");
         }
+
+        function openModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = text;
+            document.getElementById('customModal').classList.remove('hidden');
+            document.getElementById('customModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.remove('flex');
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        function openCartModal() {
+            openModal('Shopping Cart', `You have selected ${cartCount} item(s). You can call us at 08023589140 or message us on WhatsApp to finalize your purchase.`);
+        }
+
+        displayProducts(products);
     </script>
 </body>
-            </html>
-            
+</html>
