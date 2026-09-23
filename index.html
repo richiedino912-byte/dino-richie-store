@@ -3,228 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dino Richie Store</title>
+    <title>Dïñð Rïçhíê Official Store | Top Quality Shopping</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900 pb-20">
+<body class="bg-[#f2f2f2] font-sans text-gray-900 pb-24">
 
-    <!-- Top Header Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-8">
-                <h1 class="font-extrabold text-orange-600 text-lg sm:text-xl tracking-tight">DINO RICHIE STORE</h1>
-                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                    <button onclick="filterCategory('all')" class="text-orange-600 font-bold">Home / All</button>
-                    <button onclick="filterCategory('barbing')" class="hover:text-orange-600">Barbing Tools</button>
-                    <button onclick="filterCategory('hair')" class="hover:text-orange-600">Hair & Wigs</button>
-                    <button onclick="filterCategory('fashion')" class="hover:text-orange-600">Fashion</button>
-                    <button onclick="filterCategory('gadgets')" class="hover:text-orange-600">Gadgets</button>
-                </nav>
+    <!-- TOP HEADER UTILITY BAR -->
+    <div class="bg-[#1a1a1a] text-white text-xs py-2 px-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span>⭐ Hotline / Calls: <a href="tel:08023589140" class="font-bold underline text-orange-400">08023589140</a></span>
+                <span class="hidden sm:inline">📦 Nationwide Delivery Across Nigeria</span>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="tel:08023589140" class="hidden sm:inline-block text-xs bg-orange-50 text-orange-700 px-3 py-2 rounded-lg font-bold border border-orange-200">📞 Call: 08023589140</a>
-                <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20want%20to%20make%20an%20enquiry%20about%20your%20store." target="_blank" class="hidden sm:inline-block text-xs bg-green-50 text-green-700 px-3 py-2 rounded-lg font-bold border border-green-200">💬 WhatsApp</a>
-                <div class="relative bg-gray-100 p-2.5 rounded-full hover:bg-gray-200 text-gray-700 cursor-pointer" onclick="openCartModal()">
-                    🛒 <span id="cartBadge" class="absolute -top-1 -right-1 bg-orange-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </div>
+            <div>
+                <a href="https://wa.me/2349169688476" target="_blank" class="hover:text-orange-400 font-semibold">💬 WhatsApp Support</a>
             </div>
         </div>
-        <!-- Search Bar Row -->
-        <div class="bg-white px-4 py-3 border-t border-gray-100">
-            <div class="max-w-7xl mx-auto">
-                <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products across all categories..." class="w-full bg-gray-100 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
+    </div>
+
+    <!-- MAIN BRAND HEADER -->
+    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- Brand Identity -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="filterCategory('all')">
+                <div class="bg-[#f68b1e] text-white font-black text-xl p-2.5 rounded-xl tracking-wider shadow">DR</div>
+                <div>
+                    <h1 class="font-black text-gray-900 text-lg sm:text-xl tracking-tight leading-none uppercase">DÏÑØ RÏĆHÍĘ</h1>
+                    <span class="text-[10px] uppercase font-bold text-[#f68b1e] tracking-widest">Official Store</span>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-2xl hidden md:flex items-center">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">🔍</span>
+                    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products, brands and categories..." class="w-full bg-[#f4f4f4] pl-11 pr-4 py-3 rounded-l-lg text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#f68b1e] border border-transparent">
+                </div>
+                <button onclick="searchProducts()" class="bg-[#f68b1e] hover:bg-[#e07a14] text-white px-6 py-3 rounded-r-lg font-bold text-sm transition">Search</button>
+            </div>
+
+            <!-- Quick Action / Cart Button -->
+            <div class="flex items-center gap-2">
+                <button onclick="openDirectOrderModal()" class="flex items-center gap-2 bg-orange-50 border border-orange-200 text-[#f68b1e] px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-orange-100 transition shadow-sm">
+                    🛒 <span class="hidden sm:inline">Checkout Order</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Search Bar -->
+        <div class="md:hidden px-4 pb-3 bg-white">
+            <div class="flex items-center">
+                <input type="text" id="mobileSearchInput" onkeyup="searchProducts()" placeholder="Search products..." class="w-full bg-gray-100 px-4 py-2.5 rounded-l-lg text-sm focus:outline-none">
+                <button onclick="searchProducts()" class="bg-[#f68b1e] text-white px-4 py-2.5 rounded-r-lg text-sm font-bold">Search</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- CATEGORIES SELECTOR BUTTONS -->
-        <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Shop By Category (Click to Filter)</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
-                <div onclick="filterCategory('all')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
-                    📂 All Products
-                </div>
-                <div onclick="filterCategory('barbing')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+        <!-- CATEGORY NAVIGATION -->
+        <section class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
+            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Shop By Category</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
+                <button onclick="filterCategory('all')" id="cat-all" class="category-btn p-3 bg-orange-50 text-[#f68b1e] border border-orange-200 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2">
+                    🔥 All Products
+                </button>
+                <button onclick="filterCategory('barbing')" id="cat-barbing" class="category-btn p-3 bg-gray-50 hover:bg-orange-50 border rounded-xl font-semibold text-xs transition flex items-center justify-center gap-2">
                     ✂️ Barbing Tools
-                </div>
-                <div onclick="filterCategory('hair')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                </button>
+                <button onclick="filterCategory('hair')" id="cat-hair" class="category-btn p-3 bg-gray-50 hover:bg-orange-50 border rounded-xl font-semibold text-xs transition flex items-center justify-center gap-2">
                     💇‍♀️ Hair & Wigs
-                </div>
-                <div onclick="filterCategory('fashion')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
-                    👕 Fashion
-                </div>
-                <div onclick="filterCategory('gadgets')" class="p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 border transition font-semibold text-sm">
+                </button>
+                <button onclick="filterCategory('fashion')" id="cat-fashion" class="category-btn p-3 bg-gray-50 hover:bg-orange-50 border rounded-xl font-semibold text-xs transition flex items-center justify-center gap-2">
+                    👕 Fashion & Wear
+                </button>
+                <button onclick="filterCategory('gadgets')" id="cat-gadgets" class="category-btn p-3 bg-gray-50 hover:bg-orange-50 border rounded-xl font-semibold text-xs transition flex items-center justify-center gap-2">
                     📱 Gadgets
-                </div>
+                </button>
             </div>
         </section>
 
-        <!-- PRODUCTS GRID -->
+        <!-- PRODUCT GRID -->
         <section>
             <div class="flex justify-between items-center mb-4">
-                <h2 id="sectionTitle" class="text-lg font-bold text-gray-900">All Available Products</h2>
+                <h2 id="sectionTitle" class="text-base sm:text-lg font-bold text-gray-900">Flash Sales & Available Items</h2>
+                <span class="text-xs text-gray-500 font-medium" id="productCountLabel">Showing all items</span>
             </div>
 
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Products loaded dynamically -->
             </div>
         </section>
-
-        <!-- CUSTOMER ACCOUNT HUB & SUPPORT -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <section class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="p-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                    <div>
-                        <h3 class="font-bold text-sm text-gray-900">Customer Account Hub</h3>
-                        <p class="text-gray-500 text-xs">My Account Dashboard</p>
-                    </div>
-                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold text-xs">VIP CUSTOMER</span>
-                </div>
-
-                <div class="divide-y divide-gray-100 text-sm">
-                    <button onclick="openModal('My Orders', 'You have 0 active orders in progress.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
-                        <span class="font-medium text-gray-700">📦 My Orders</span>
-                        <span class="text-gray-400 text-xs">0 in progress ></span>
-                    </button>
-                    <button onclick="openModal('Inbox', 'You have no new notifications.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
-                        <span class="font-medium text-gray-700">📥 Messages & Inbox</span>
-                        <span class="text-gray-400 text-xs">></span>
-                    </button>
-                    <button onclick="openModal('Pending Reviews', 'No items pending review right now.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
-                        <span class="font-medium text-gray-700">⭐ My Reviews & Ratings</span>
-                        <span class="text-gray-400 text-xs">></span>
-                    </button>
-                    <button onclick="openModal('Vouchers', 'Available Vouchers: Use code DINO1K for discounts.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
-                        <span class="font-medium text-gray-700">🎟️ My Vouchers</span>
-                        <span class="text-gray-400 text-xs">1 Available ></span>
-                    </button>
-                    <button onclick="openModal('Wishlist', 'Your saved wishlist items will appear here.')" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
-                        <span class="font-medium text-gray-700">❤️ My Wishlist</span>
-                        <span class="text-gray-400 text-xs">View saved ></span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Help & Support -->
-            <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col justify-between">
-                <div>
-                    <h3 class="font-bold text-sm text-gray-900 uppercase tracking-wider mb-4">Customer Support</h3>
-                    <div class="space-y-3 text-sm">
-                        <a href="tel:08023589140" class="block p-3 bg-orange-50 text-orange-700 font-semibold rounded-xl border border-orange-100 text-center">📞 Call Support: 08023589140</a>
-                        <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20need%20support%20with%20my%20order." target="_blank" class="block p-3 bg-green-50 text-green-700 font-semibold rounded-xl border border-green-100 text-center">💬 WhatsApp Support</a>
-                    </div>
-                </div>
-                <div class="mt-6 pt-4 border-t border-gray-100">
-                    <button onclick="alert('Logged out successfully.')" class="w-full text-red-600 font-semibold text-center text-sm">Log Out</button>
-                </div>
-            </section>
-        </div>
     </main>
 
-    <!-- INTERACTIVE POPUP MODAL -->
-    <div id="customModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl">
-            <h3 id="modalTitle" class="text-lg font-bold text-gray-900 mb-2">Notice</h3>
-            <p id="modalBody" class="text-sm text-gray-600 mb-6">Details here...</p>
-            <button onclick="closeModal()" class="w-full bg-orange-600 text-white py-2.5 rounded-xl font-bold text-sm">Close</button>
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 mt-16 py-8 text-center text-xs text-gray-500 space-y-2">
+        <p class="font-bold text-gray-800">DÏÑØ RÏĆHÍĘ OFFICIAL STORE &copy; 2026. All Rights Reserved.</p>
+        <p>Customer Support: 08023589140 | WhatsApp: +2349169688476</p>
+    </footer>
+
+    <!-- PRODUCT DETAILS & MULTI-IMAGE MODAL -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center font-bold">✕</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- CUSTOMER CHECKOUT MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative my-8">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center font-bold">✕</button>
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Complete Your Order</h3>
+            <p class="text-xs text-gray-500 mb-4">Enter your delivery details below to send your order directly to Dino Richie via WhatsApp.</p>
+            
+            <div class="space-y-3 text-sm">
+                <div>
+                    <label class="block font-bold text-xs text-gray-700 mb-1">Selected Product & Price:</label>
+                    <input type="text" id="checkoutItemInfo" readonly class="w-full bg-gray-100 border px-3 py-2 rounded-lg text-gray-700 font-semibold text-xs">
+                </div>
+                <div id="sizeContainer" class="hidden">
+                    <label class="block font-bold text-xs text-gray-700 mb-1">Chosen Size:</label>
+                    <input type="text" id="checkoutSizeInfo" readonly class="w-full bg-gray-100 border px-3 py-2 rounded-lg text-gray-700 font-semibold text-xs">
+                </div>
+                <div>
+                    <label class="block font-bold text-xs text-gray-700 mb-1">Full Name:</label>
+                    <input type="text" id="customerName" placeholder="e.g. Adebayo Johnson" class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#f68b1e] focus:outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-xs text-gray-700 mb-1">Phone Number:</label>
+                    <input type="tel" id="customerPhone" placeholder="e.g. 08012345678" class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#f68b1e] focus:outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-xs text-gray-700 mb-1">Delivery Address & State:</label>
+                    <textarea id="customerAddress" rows="2" placeholder="Street address, city, state..." class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#f68b1e] focus:outline-none"></textarea>
+                </div>
+                <div class="pt-2">
+                    <button onclick="submitOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-green-600 text-white py-3 rounded-xl font-bold text-sm shadow transition flex items-center justify-center gap-2">
+                        🚀 Send Order to WhatsApp Now
+                    </button>
+                    <a href="tel:08023589140" class="block text-center w-full bg-[#f68b1e] hover:bg-[#e07a14] text-white py-3 rounded-xl font-bold text-sm shadow transition mt-2">
+                        📞 Call Store Directly: 08023589140
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         const products = [
-            { id: 1, name: "Professional Heavy Duty Cordless Hair Clipper", category: "barbing", price: 32500, oldPrice: 45000, shipping: 3500, rating: "★★★★☆ (143)", image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60" },
-            { id: 2, name: "Professional Barber Cape & Neck Duster Set", category: "barbing", price: 8500, oldPrice: 12000, shipping: 2000, rating: "★★★★★ (52)", image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&auto=format&fit=crop&q=60" },
-            { id: 3, name: "Luxury 24 Inches Super Bone Straight Human Hair Wig", category: "hair", price: 85000, oldPrice: 120000, shipping: 4500, rating: "★★★★★ (89)", image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&auto=format&fit=crop&q=60" },
-            { id: 4, name: "Natural Curly Water Wave Human Hair Bundle", category: "hair", price: 45000, oldPrice: 60000, shipping: 3500, rating: "★★★★☆ (34)", image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&auto=format&fit=crop&q=60" },
-            { id: 5, name: "Men's Luxury Designer Casual Sneaker Shoes", category: "fashion", price: 28000, oldPrice: 40000, shipping: 3000, rating: "★★★★★ (67)", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" },
-            { id: 6, name: "Classic Men's Formal Office Suit & Blazer", category: "fashion", price: 55000, oldPrice: 75000, shipping: 4000, rating: "★★★★☆ (28)", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&auto=format&fit=crop&q=60" },
-            { id: 7, name: "Ultra-Fast Wireless Power Bank 20000mAh", category: "gadgets", price: 18500, oldPrice: 25000, shipping: 2500, rating: "★★★★★ (110)", image: "https://images.unsplash.com/photo-1609592424104-16d7d5cb4f71?w=500&auto=format&fit=crop&q=60" },
-            { id: 8, name: "Wireless Bluetooth Bass Stereo Earbuds", category: "gadgets", price: 12000, oldPrice: 18000, shipping: 2000, rating: "★★★★☆ (95)", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60" }
+            { 
+                id: 1, 
+                name: "Professional Heavy Duty Cordless Hair Clipper", 
+                category: "barbing", 
+                price: 32500, 
+                oldPrice: 45000, 
+                shipping: 3500, 
+                rating: "★★★★☆ (143)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "High-precision professional cordless hair clipper built for clean cuts, fades, and professional barbing salon standards. Comes with multiple guide combs and rechargeable battery."
+            },
+            { 
+                id: 2, 
+                name: "Professional Barber Cape & Neck Duster Set", 
+                category: "barbing", 
+                price: 8500, 
+                oldPrice: 12000, 
+                shipping: 2000, 
+                rating: "★★★★★ (52)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "Waterproof professional barber cape with smooth neck closure and soft-bristle neck duster brush for effortless hair dusting."
+            },
+            { 
+                id: 3, 
+                name: "Luxury 24 Inches Super Bone Straight Human Hair Wig", 
+                category: "hair", 
+                price: 85000, 
+                oldPrice: 120000, 
+                shipping: 4500, 
+                rating: "★★★★★ (89)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "100% premium human hair bone straight wig. Tangle-free, silky soft texture, and can be washed and restyled."
+            },
+            { 
+                id: 4, 
+                name: "Natural Curly Water Wave Human Hair Bundle", 
+                category: "hair", 
+                price: 45000, 
+                oldPrice: 60000, 
+                shipping: 3500, 
+                rating: "★★★★☆ (34)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "Bouncy water wave human hair bundles with full volume and minimal shedding."
+            },
+            { 
+                id: 5, 
+                name: "Men's Luxury Designer Casual Sneaker Shoes", 
+                category: "fashion", 
+                price: 28000, 
+                oldPrice: 40000, 
+                shipping: 3000, 
+                rating: "★★★★★ (67)", 
+                hasSize: true,
+                sizeType: "shoe", 
+                sizes: ["40", "41", "42", "43", "44", "45"],
+                images: [
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "Premium designer sneakers built for ultimate comfort, durability, and standout style. Breathable and lightweight."
+            },
+            { 
+                id: 6, 
+                name: "Classic Men's Formal Office Suit & Blazer", 
+                category: "fashion", 
+                price: 55000, 
+                oldPrice: 75000, 
+                shipping: 4000, 
+                rating: "★★★★☆ (28)", 
+                hasSize: true,
+                sizeType: "clothing",
+                sizes: ["Small (S)", "Medium (M)", "Large (L)", "XL", "XXL", "3XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "Tailored slim-fit men's formal suit and blazer set. Ideal for weddings, business meetings, and executive appearances."
+            },
+            { 
+                id: 7, 
+                name: "Ultra-Fast Wireless Power Bank 20000mAh", 
+                category: "gadgets", 
+                price: 18500, 
+                oldPrice: 25000, 
+                shipping: 2500, 
+                rating: "★★★★★ (110)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1609592424104-16d7d5cb4f71?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "High-capacity 20000mAh power bank with fast-charging USB ports and LED power indicator."
+            },
+            { 
+                id: 8, 
+                name: "Wireless Bluetooth Bass Stereo Earbuds", 
+                category: "gadgets", 
+                price: 12000, 
+                oldPrice: 18000, 
+                shipping: 2000, 
+                rating: "★★★★☆ (95)", 
+                hasSize: false,
+                images: [
+                    "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1609592424104-16d7d5cb4f71?w=500&auto=format&fit=crop&q=60"
+                ],
+                desc: "Immersive stereo sound wireless earbuds with smart touch controls, active noise filtering, and long battery charging case."
+            }
         ];
 
-        let cartCount = 0;
+        let currentSelectedItem = null;
 
         function displayProducts(items) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
+            document.getElementById('productCountLabel').innerText = `Showing ${items.length} item(s)`;
+
             if(items.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No products found in this category.</p>';
+                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-12 bg-white rounded-2xl border">No products found matching your search.</p>';
                 return;
             }
 
             items.forEach(p => {
-                const whatsappMsg = encodeURIComponent(`Hello Dino Richie, I want to order:\n\n*${p.name}*\nPrice: ₦${p.price.toLocaleString()}\nShipping: ₦${p.shipping.toLocaleString()}\n\nPlease guide me on delivery and payment.`);
-                
+                const discount = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
                 grid.innerHTML += `
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                    <div onclick="openProductModal(${p.id})" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition cursor-pointer group">
                         <div>
-                            <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
-                                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
-                                <span class="absolute top-2 left-2 bg-black bg-opacity-60 text-white px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${p.category}</span>
+                            <div class="relative h-44 sm:h-52 w-full bg-gray-100 overflow-hidden">
+                                <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <span class="absolute top-2 right-2 bg-orange-100 text-[#f68b1e] px-2 py-0.5 rounded text-[10px] font-bold">-${discount}%</span>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-sm text-gray-900 line-clamp-2 h-10">${p.name}</h3>
-                                <div class="text-orange-400 text-xs my-1">${p.rating}</div>
+                            <div class="p-3 sm:p-4">
+                                <h3 class="font-normal text-xs sm:text-sm text-gray-800 line-clamp-2 h-9 sm:h-10">${p.name}</h3>
                                 <div class="flex items-baseline gap-2 mt-2">
-                                    <span class="font-bold text-base text-gray-900">₦${p.price.toLocaleString()}</span>
-                                    <span class="text-gray-400 line-through text-xs">₦${p.oldPrice.toLocaleString()}</span>
+                                    <span class="font-black text-sm sm:text-base text-gray-900">₦${p.price.toLocaleString()}</span>
+                                    <span class="text-gray-400 line-through text-[11px]">₦${p.oldPrice.toLocaleString()}</span>
                                 </div>
+                                <div class="text-orange-400 text-[10px] sm:text-xs mt-1">${p.rating}</div>
                             </div>
                         </div>
-                        <div class="p-4 pt-0 space-y-2">
-                            <div class="text-xs text-gray-500 border-t pt-2 mb-2">
-                                Shipping from <strong class="text-gray-700">₦${p.shipping.toLocaleString()}</strong>
-                            </div>
-                            <a href="https://wa.me/2349169688476?text=${whatsappMsg}" target="_blank" onclick="incrementCart()" class="block text-center w-full bg-green-600 text-white py-2 rounded-xl font-bold text-xs uppercase shadow hover:bg-green-700 transition">💬 Order via WhatsApp</a>
-                            <a href="tel:08023589140" onclick="incrementCart()" class="block text-center w-full bg-orange-600 text-white py-2 rounded-xl font-bold text-xs uppercase shadow hover:bg-orange-700 transition">📞 Call to Order: 08023589140</a>
+                        <div class="px-3 pb-3 pt-0">
+                            <button class="w-full bg-[#f68b1e] hover:bg-[#e07a14] text-white py-2 rounded-lg font-bold text-xs transition shadow-sm">
+                                View & Order
+                            </button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function filterCategory(cat) {
-            document.getElementById('sectionTitle').innerText = cat === 'all' ? 'All Available Products' : cat.toUpperCase() + ' PRODUCTS';
-            if(cat === 'all') {
-                displayProducts(products);
-            } else {
-                const filtered = products.filter(p => p.category === cat);
-                displayProducts(filtered);
-            }
-        }
+        function openProductModal(id) {
+            const p = products.find(item => item.id === id);
+            if(!p) return;
+            currentSelectedItem = p;
 
-        function searchProducts() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const results = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
-            displayProducts(results);
-        }
+            let imagesHtml = '';
+            p.images.forEach((img) => {
+                imagesHtml += `<img src="${img}" onclick="document.getElementById('mainViewer').src='${img}'" class="w-14 h-14 object-cover rounded-lg border-2 border-orange-300 cursor-pointer hover:opacity-80">`;
+            });
 
-        function incrementCart() {
-            cartCount++;
-            document.getElementById('cartBadge').innerText = cartCount;
-        }
-
-        function openModal(title, text) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerText = text;
-            document.getElementById('customModal').classList.remove('hidden');
-            document.getElementById('customModal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('customModal').classList.remove('flex');
-            document.getElementById('customModal').classList.add('hidden');
-        }
-
-        function openCartModal() {
-            openModal('Shopping Cart', `You have selected ${cartCount} item(s). You can call us at 08023589140 or message us on WhatsApp to finalize your purchase.`);
-        }
-
-        displayProducts(products);
-    </script>
-</body>
-</html>
+            let sizeSelectorHtml = '';
+            if(p.hasSize) {
+                let sizeOptions = '';
+                p.sizes.forEach(sz => {
+                    sizeOptions += `<option value="${sz}">${sz}</option>`;
+                });
+                sizeSelectorHtml = `
+                    <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 space-y-2">
+                        <label class="block font-bold text-xs text-orange-900 uppercase">Select Your Size (${p.sizeType === 'shoe' ? 'Shoe Size' : 'Clothing Size'}):</label>
+                        <select id="selectedSize" class="w-full bg-white border border-orange-300 px-3 py-2 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#f68b1e]">
+                            ${sizeOptions}
+                  
