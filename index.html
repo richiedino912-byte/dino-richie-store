@@ -1,338 +1,316 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DINO RICHIE STORE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Richie store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f2f2f2; color: #333; padding-bottom: 70px; }
+        
+        /* Top Search Header */
+        .top-header { background: #fff; padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; }
+        .search-container { flex: 1; background: #f0f0f0; display: flex; align-items: center; padding: 8px 12px; border-radius: 4px; }
+        .search-container input { border: none; background: transparent; width: 100%; outline: none; font-size: 0.9rem; margin-left: 8px; }
+        .header-icons { display: flex; gap: 15px; margin-left: 12px; font-size: 1.2rem; cursor: pointer; }
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
-header{background:#111;color:white;text-align:center;padding:25px 15px}
-header h1{font-size:30px;margin-bottom:8px}
-header p{color:#ccc}
-nav{background:#222;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
-nav a{color:white;text-decoration:none;margin:6px;font-size:13px;font-weight:bold}
-.hero{text-align:center;background:white;padding:55px 20px}
-.hero h2{font-size:30px;margin-bottom:15px}
-.hero p{color:#666;margin-bottom:25px}
-.button{display:inline-block;background:#111;color:white;border:0;border-radius:6px;padding:13px 20px;text-decoration:none;font-weight:bold;cursor:pointer}
-section{max-width:1200px;margin:auto;padding:40px 15px}
-section h2{text-align:center;margin-bottom:25px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
-.card{background:white;padding:18px;border-radius:10px;box-shadow:0 2px 8px #ddd;text-align:center}
-.icon{font-size:45px;margin-bottom:12px}
-.card h3{margin:10px 0}
-.price{font-weight:bold;margin:12px 0}
-.card .button{width:100%}
-footer{background:#111;color:white;text-align:center;padding:30px 15px}
-footer p{color:#ccc;margin-top:8px}
-.notice{background:#fff5c7;padding:15px;margin-top:20px;border-radius:6px}
-select{width:100%;padding:13px;margin:15px 0;border-radius:6px}
-</style>
+        /* Store Banner */
+        .store-banner { width: 100%; max-height: 200px; background: #000; overflow: hidden; }
+        .store-banner img { width: 100%; height: auto; object-fit: cover; }
+
+        /* Categories Section (Circles) */
+        .categories-section { background: #fff; padding: 15px 10px; margin-bottom: 10px; }
+        .section-title { font-size: 0.95rem; font-weight: bold; color: #333; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        .category-item { cursor: pointer; text-decoration: none; color: #333; }
+        .category-circle { width: 60px; height: 60px; background: #f3e8ff; border-radius: 50%; margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; overflow: hidden; border: 1px solid #e9d5ff; }
+        .category-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .category-name { font-size: 0.7rem; color: #444; line-height: 1.2; height: 2.4em; overflow: hidden; }
+
+        /* Product Section Header */
+        .deals-header { background: #f68b1e; color: #fff; padding: 10px 15px; font-size: 0.95rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 6px; border-top-right-radius: 6px; }
+        .deals-header span:last-child { font-size: 0.85rem; cursor: pointer; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px; background: #f68b1e; }
+        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .product-card { background: #fff; padding: 10px; border-radius: 4px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .discount-badge { position: absolute; bottom: 135px; left: 8px; background: #e0f2fe; color: #0284c7; font-size: 0.65rem; font-weight: bold; padding: 2px 5px; border-radius: 2px; }
+        .wishlist-btn { position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.1rem; color: #bbb; cursor: pointer; }
+        
+        .product-img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 8px; }
+        .product-title { font-size: 0.8rem; color: #333; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.5em; }
+        
+        .current-price { font-size: 0.95rem; font-weight: bold; color: #000; }
+        .old-price { font-size: 0.7rem; color: #888; text-decoration: line-through; display: block; margin-bottom: 8px; }
+
+        .buy-btn { width: 100%; background: #f68b1e; color: #fff; border: none; padding: 7px; border-radius: 3px; font-weight: bold; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; }
+        .buy-btn:hover { background: #e07a14; }
+
+        /* Bottom Nav Bar */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 6px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #777; font-size: 0.65rem; text-decoration: none; cursor: pointer; }
+        .nav-item span { display: block; font-size: 1.2rem; }
+        .nav-item.active { color: #f68b1e; }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>🛍️ DINO RICHIE STORE</h1>
-<p>Everything You Need, All In One Place</p>
-</header>
+    <!-- Top Search Header -->
+    <div class="top-header">
+        <div class="search-container">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Search products, brands..." onkeyup="filterProducts()">
+        </div>
+        <div class="header-icons" onclick="openCart()">
+            🛒<span id="cartBadge" style="font-size: 0.7rem; background: #f68b1e; color: white; padding: 1px 5px; border-radius: 50%; vertical-align: top;">0</span>
+        </div>
+    </div>
 
-<nav>
-<a href="#home">Home</a>
-<a href="#categories">Categories</a>
-<a href="#products">Products</a>
-<a href="#accounts">Accounts</a>
-<a href="#contact">Contact</a>
-</nav>
+    <!-- Store Banner -->
+    <div class="store-banner">
+        <img src="img.png" alt="Dino Richie Banner">
+    </div>
 
-<div style="text-align:center;padding:15px;background:white;">
-  <button class="button" id="googleLoginBtn">🔐 Sign in with Google</button>
-  <p id="userStatus">Not signed in</p>
-</div>
+    <!-- Rounded Categories Section -->
+    <div class="categories-section">
+        <div class="section-title">All Your Essentials in One Place</div>
+        <div class="categories-grid">
+            <div class="category-item">
+                <div class="category-circle">💈</div>
+                <div class="category-name">Celebrity Cuts</div>
+            </div>
+            <div class="category-item">
+                <div class="category-circle">🧴</div>
+                <div class="category-name">Grooming Kits</div>
+            </div>
+            <div class="category-item">
+                <div class="category-circle">✨</div>
+                <div class="category-name">Beard Oils</div>
+            </div>
+            <div class="category-item">
+                <div class="category-circle">👑</div>
+                <div class="category-name">VIP Packages</div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Product Showcase Area -->
+    <div class="deals-header">
+        <span>Dino Richie store</span>
+        <span>See All ›</span>
+    </div>
 
+    <div class="product-grid" id="productGrid">
 
+        <!-- Product 1 -->
+        <div class="product-card" data-name="Celebrity Signature Haircut">
+            <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+            <span class="discount-badge">-30%</span>
+            <img src="img.png" alt="Haircut" class="product-img">
+            <div class="product-title">Celebrity Signature Haircut & Razor Finish</div>
+            <div class="current-price">₦15,000</div>
+            <span class="old-price">₦21,500</span>
+            <button class="buy-btn" onclick="addToCart('Celebrity Signature Haircut', 15000)">Add to Cart</button>
+        </div>
 
-<section class="hero" id="home">
-<h2>Welcome to DINO RICHIE STORE</h2>
-<p>Shop barbing tools, watches, fashion, electronics, beauty, food, vehicles, books, digital products and more.</p>
-<a href="#products" class="button">🛒 Shop Now</a>
-</section>
+        <!-- Product 2 -->
+        <div class="product-card" data-name="Luxury Beard Growth Oil">
+            <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+            <span class="discount-badge">-25%</span>
+            <img src="img.png" alt="Beard Oil" class="product-img">
+            <div class="product-title">Luxury Organic Beard Growth & Conditioning Oil</div>
+            <div class="current-price">₦8,500</div>
+            <span class="old-price">₦11,300</span>
+            <button class="buy-btn" onclick="addToCart('Luxury Beard Growth Oil', 8500)">Add to Cart</button>
+        </div>
 
-<section id="categories">
-<h2>🛒 Shop By Category</h2>
+        <!-- Product 3 -->
+        <div class="product-card" data-name="VIP Grooming Kit">
+            <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+            <span class="discount-badge">-40%</span>
+            <img src="img.png" alt="Grooming Kit" class="product-img">
+            <div class="product-title">VIP Professional Grooming Care Kit & Balm</div>
+            <div class="current-price">₦25,000</div>
+            <span class="old-price">₦41,600</span>
+            <button class="buy-btn" onclick="addToCart('VIP Grooming Kit', 25000)">Add to Cart</button>
+        </div>
 
-<div class="grid">
-<div class="card"><div class="icon">💈</div><h3>Barbing Tools</h3></div>
-<div class="card"><div class="icon">⌚</div><h3>Wrist Watches</h3></div>
-<div class="card"><div class="icon">👕</div><h3>Fashion</h3></div>
-<div class="card"><div class="icon">📱</div><h3>Electronics</h3></div>
-<div class="card"><div class="icon">💄</div><h3>Beauty</h3></div>
-<div class="card"><div class="icon">🏠</div><h3>Home & Kitchen</h3></div>
-<div class="card"><div class="icon">🍔</div><h3>Food</h3></div>
-<div class="card"><div class="icon">🚗</div><h3>Vehicles</h3></div>
-<div class="card"><div class="icon">📚</div><h3>Books & Education</h3></div>
-<div class="card"><div class="icon">💻</div><h3>Digital Products</h3></div>
-<div class="card"><div class="icon">🎧
-</div><h3>Accessories</h3></div>
-</div>
-</section>
+        <!-- Product 4 -->
+        <div class="product-card" data-name="Pro Hair Trimmer">
+            <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+            <span class="discount-badge">-15%</span>
+            <img src="img.png" alt="Trimmer" class="product-img">
+            <div class="product-title">Professional Cordless Precision Hair Clipper</div>
+            <div class="current-price">₦35,000</div>
+            <span class="old-price">₦41,100</span>
+            <button class="buy-btn" onclick="addToCart('Pro Hair Trimmer', 35000)">Add to Cart</button>
+        </div>
 
-<section id="products">
-<h2>🔥 Products Available For Sale</h2>
-<input
-  type="text"
-  id="productSearch"
-  placeholder="🔎 Search products..."
-  onkeyup="searchProducts()"
-  style="width:90%; padding:12px; margin:15px auto; display:block; border-radius:8px; border:1px solid #ccc;"
->
-<div class="grid">
+    </div>
 
-<div class="card">
-<img src="clipper.jpg" alt="Premium Professional Hair Clipper" class="product-image">
-<h3>Premium Professional Hair Clipper</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="addToCart('Professional Hair Clipper')">🛒 Add to Cart</button>
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item active"><span>🏠</span>Home</a>
+        <a href="index.html" class="nav-item"><span>📂</span>Categories</a>
+        <a href="index.html" class="nav-item" onclick="openCart()"><span>🛒</span>Cart</a>
+        <a href="orders.html" class="nav-item"><span>📦</span>Orders</a>
+        <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20have%20an%20inquiry%20regarding%20my%20order." target="_blank" class="nav-item"><span>💬</span>Support</a>
+    </div>
 
-<div class="card">
-<div class="icon">✂️</div>
-<h3>Professional Trimmer</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Professional Trimmer')">Order Now</button>
-</div>
-³
-<div class="card">
-<div class="icon">💈</div>
-<h3>Complete Barbing Set</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Complete Barbing Set')">Order Now</button>
-</div>
+    <!-- Floating WhatsApp Support Button -->
+    <a href="https://wa.me/2349169688476?text=Hello%20Dino%20Richie,%20I%20need%20assistance%20with%20my%20store%20order." 
+       target="_blank" 
+       style="position: fixed; bottom: 70px; right: 15px; background: #25d366; color: white; padding: 10px 15px; border-radius: 50px; font-weight: bold; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 999; display: flex; align-items: center; gap: 6px;">
+       💬 Chat on WhatsApp
+    </a>
 
-<div class="card">
-<div class="icon">⌚</div>
-<h3>Luxury Wrist Watch</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Luxury Wrist Watch')">Order Now</button>
-</div>
-<div class="card">
-<div class="icon">👕</div>
-<h3>Men's Fashion</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Mens Fashion')">Order Now</button>
-</div>
+    <!-- Checkout Modal Popup -->
+    <div id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; justify-content:center; align-items:center;">
+        <div style="background:#fff; width:90%; max-width:400px; padding:20px; border-radius:8px; position:relative; max-height:90vh; overflow-y:auto;">
+            <h3 style="margin-bottom:15px; font-size:1.1rem; color:#333;">Checkout & Payment</h3>
+            
+            <div id="checkoutDetails" style="font-size:0.85rem; color:#555; margin-bottom:15px; line-height:1.5;">
+                <!-- Order breakdown & delivery date injects here -->
+            </div>
 
-<div class="card">
-<div class="icon">👟</div>
-<h3>Fashion Sneakers</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Fashion Sneakers')">Order Now</button>
-</div>
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.8rem; font-weight:bold; display:block; margin-bottom:5px;">Select Payment Method:</label>
+                <select id="paymentMethod" onchange="togglePaymentInstructions()" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:0.85rem;">
+                    <option value="Bank Transfer">Direct Bank Transfer</option>
+                    <option value="OPay">OPay</option>
+                    <option value="PalmPay">PalmPay</option>
+                    <option value="Pay on Delivery">Pay on Delivery</option>
+                </select>
+            </div>
 
-<div class="card">
-<div class="icon">📱</div>
-<h3>Phone Accessories</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Phone Accessories')">Order Now</button>
-</div>
+            <!-- SmartCash Bank Details Box -->
+            <div id="bankDetailsBox" style="background:#f8f9fa; border:1px dashed #f68b1e; padding:12px; border-radius:4px; margin-bottom:15px; font-size:0.85rem; display:block;">
+                <b style="color:#f68b1e;">🏦 Bank Transfer Details:</b><br>
+                <span>Bank Name: <b>SmartCash</b></span><br>
+                <span>Account Number: <b>8023589140</b></span><br>
+                <span>Account Name: <b>Yekini Ahmed</b></span><br>
+                <i style="font-size:0.75rem; color:#666;">Transfer the exact total amount and click confirm below.</i>
+            </div>
 
-<div class="card">
-<div class="icon">🎧</div>
-<h3>Wireless Earbuds</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Wireless Earbuds')">Order Now</button>
-</div>
-<div class="card">
-<div class="icon">💄</div>
-<h3>Beauty Products</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Beauty Products')">Order Now</button>
-</div>
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.8rem; font-weight:bold; display:block; margin-bottom:5px;">Delivery Location / Address:</label>
+                <input type="text" id="customerAddress" placeholder="Enter your delivery address" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:0.85rem;">
+            </div>
 
-<div class="card">
-<div class="icon">🏠</div>
-<h3>Home & Kitchen</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Home and Kitchen Products')">Order Now</button>
-</div>
+            <button onclick="confirmOrder()" style="width:100%; background:#f68b1e; color:#fff; border:none; padding:10px; border-radius:4px; font-weight:bold; font-size:0.9rem; cursor:pointer; text-transform:uppercase;">Confirm & Place Order</button>
+            
+            <button onclick="closeCheckout()" style="width:100%; background:#eee; color:#333; border:none; padding:8px; border-radius:4px; font-weight:bold; font-size:0.85rem; cursor:pointer; margin-top:8px;">Cancel</button>
+        </div>
+    </div>
 
-<div class="card">
-<div class="icon">🍔</div>
-<h3>Food Products</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="addToCart('Professional Hair Clipper')">🛒 Add to Cart</button>
+    <script>
+        let cart = [];
 
-<div class="card">
-<div class="icon">🚗</div>
-<h3>Vehicles</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Vehicle')">Order Now</button>
-</div><div class="card">
-<div class="icon">📚</div>
-<h3>Books & E-books</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Books and E-books')">Order Now</button>
-</div>
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            document.getElementById('cartBadge').innerText = cart.length;
+            alert(name + " added to your cart!");
+        }
 
-<div class="card">
-<div class="icon">💻</div>
-<h3>Digital Products</h3>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('Digital Products')">Order Now</button>
-</div>
+        function openCart() {
+            if (cart.length === 0) {
+                alert("Your cart is empty. Add items first!");
+                return;
+            }
+            
+            let itemTotal = 0;
+            cart.forEach(item => { itemTotal += item.price; });
+            let deliveryFee = 2500;
+            let grandTotal = itemTotal + deliveryFee;
 
-</div>
-</section><section id="accounts">
-<h2>📱 Social Media Accounts For Sale</h2>
+            // Calculate estimated delivery dates (e.g. 2 to 3 days from now)
+            let today = new Date();
+            let deliveryStart = new Date();
+            deliveryStart.setDate(today.getDate() + 2);
+            let deliveryEnd = new Date();
+            deliveryEnd.setDate(today.getDate() + 4);
+            
+            let options = { weekday: 'short', month: 'short', day: 'numeric' };
+            let startDateStr = deliveryStart.toLocaleDateString('en-US', options);
+            let endDateStr = deliveryEnd.toLocaleDateString('en-US', options);
 
-<div class="grid">
+            let detailsHTML = `
+                <b>Items in Cart (${cart.length}):</b><br>
+            `;
+            cart.forEach((item, index) => {
+                detailsHTML += `${index + 1}. ${item.name} - ₦${item.price.toLocaleString()}<br>`;
+            });
+            detailsHTML += `<hr style="margin:8px 0; border:0; border-top:1px solid #ddd;">`;
+            detailsHTML += `<b>Item's Total:</b> ₦${itemTotal.toLocaleString()}<br>`;
+            detailsHTML += `<b>Delivery Fee:</b> ₦${deliveryFee.toLocaleString()}<br>`;
+            detailsHTML += `<b>Total Amount:</b> <span style="color:#f68b1e; font-size:1rem; font-weight:bold;">₦${grandTotal.toLocaleString()}</span><br>`;
+            detailsHTML += `<div style="margin-top:8px; background:#e0f2fe; color:#0369a1; padding:6px; border-radius:4px; font-size:0.8rem;">📦 <b>Estimated Delivery:</b> Between ${startDateStr} and ${endDateStr}</div>`;
 
-<div class="card">
-<div class="icon">🎵</div>
-<h3>TikTok Account #1</h3>
-<p>AVAILABLE FOR SALE</p>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('TikTok Account #1')">Buy / Enquire</button>
-</div>
+            document.getElementById('checkoutDetails').innerHTML = detailsHTML;
+            document.getElementById('checkoutModal').style.display = 'flex';
+            togglePaymentInstructions();
+        }
 
-<div class="card">
-<div class="icon">🎵</div>
-<h3>TikTok Account #2</h3>
-<p>AVAILABLE FOR SALE</p>
-<div class="price">Contact For Price</div>
-<button class="button" onclick="order('TikTok Account #2')">Buy / Enquire</button>
-</div>
+        function togglePaymentInstructions() {
+            let paymentMethod = document.getElementById('paymentMethod').value;
+            let bankBox = document.getElementById('bankDetailsBox');
+            
+            if (paymentMethod === "Bank Transfer" || paymentMethod === "OPay" || paymentMethod === "PalmPay") {
+                bankBox.style.display = "block";
+            } else {
+                bankBox.style.display = "none";
+            }
+        }
 
-</div>
+        function closeCheckout() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
 
-<div class="notice">
-<strong>Important:</strong> Never publish passwords, recovery codes or private login information on this website.
-</div>
-</section><section>
-<h2>🌍 International Customers</h2>
+        function confirmOrder() {
+            let address = document.getElementById('customerAddress').value;
+            let payment = document.getElementById('paymentMethod').value;
 
-<div class="card">
-<p>Select your country:</p>
+            if (!address) {
+                alert("Please enter your delivery address.");
+                return;
+            }
 
-<select>
-<option>🇳🇬 Nigeria +234</option>
-<option>🇬🇧 United Kingdom +44</option>
-<option>🇺🇸 United States +1</option>
-<option>🇨🇦 Canada +1</option>
-<option>🇬🇭 Ghana +233</option>
-<option>🇿🇦 South Africa +27</option>
-<option>🇰🇪 Kenya +254</option>
-<option>🇦🇪 UAE +971</option>
-<option>🇸🇦 Saudi Arabia +966</option>
-<option>🇮🇳 India +91</option>
-<option>🇨🇳 China +86</option>
-<option>🇯🇵 Japan +81</option>
-<option>🇦🇺 Australia +61</option>
-<option>🇩🇪 Germany +49</option>
-<option>🇫🇷 France +33</option>
-<option>🇧🇷 Brazil +55</option>
-</select>
+            let itemTotal = 0;
+            cart.forEach(item => { itemTotal += item.price; });
+            let deliveryFee = 2500;
+            let grandTotal = itemTotal + deliveryFee;
 
-<p>🌍 Local & International Customers Welcome</p>
-</div>
-</section><section id="contact">
-<h2>📞 Contact DINO RICHIE STORE</h2>
+            let successMessage = `🎉 Order Placed Successfully!\n\nPayment Method: ${payment}\nDelivery Address: ${address}\nTotal: ₦${grandTotal.toLocaleString()}\n\nThank you for shopping with Dino Richie store! If you chose bank transfer, please transfer to SmartCash: 8023589140 (Yekini Ahmed).`;
+            alert(successMessage);
 
-<div class="card">
-<h3>Ready to order?</h3>
-<p style="margin:15px">Contact us to buy any product.</p>
+            // Clear cart & close
+            cart = [];
+            document.getElementById('cartBadge').innerText = 0;
+            closeCheckout();
+        }
 
-<a class="button"
-href="https://wa.me/2349169688476
-target="_blank">
-💬 WhatsApp Us
-</a>
+        function toggleWish(btn) {
+            if(btn.style.color === "red") {
+                btn.style.color = "#bbb";
+                btn.innerText = "♡";
+            } else {
+                btn.style.color = "red";
+                btn.innerText = "♥";
+            }
+        }
 
-<p style="margin-top:20px">
-📧 Email: richiedino912@gmail.com
-</p>
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name').toLowerCase();
+                cards[i].style.display = name.includes(query) ? "flex" : "none";
+            }
+        }
+    </script>
 
-<p style="margin-top:10px">
-📲 TikTok • Instagram • Facebook • YouTube
-</p>
-</div>
-</section>
-
-<footer>
-<h3>🛍️ DINO RICHIE STORE</h3>
-<p>Your online marketplace for quality products.</p>
-<p>© 2026 DINO RICHIE STORE. All rights reserved.</p>
-</footer><script>
-function order(product){
-const phone="2349169688476";
-const message="Hello DINO RICHIE STORE! I am interested in: "+product+". Please send me more information.";
-window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
-}
-  function searchProducts() {
-  const input = document.getElementById("productSearch").value.toLowerCase().trim();
-  const cards = document.querySelectorAll("#products .card");
-
-  cards.forEach(card => {
-    const text = card.textContent.toLowerCase();
-    card.style.display = text.includes(input) ? "" : "none";
-  });
-  }
-</script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCiY6oWVjZZIBSqGg0klCT5D_rRHKpLx6Y",
-    authDomain: "dino-richie-store-1c8e0.firebaseapp.com",
-    projectId: "dino-richie-store-1c8e0",
-    storageBucket: "dino-richie-store-1c8e0.firebasestorage.app",
-    messagingSenderId: "1097564612323",
-    appId: "1:1097564612323:web:446859907062da0ff3c7d6",
-    measurementId: "G-T940M428F4"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-const googleLoginBtn = document.getElementById("googleLoginBtn");
-const userStatus = document.getElementById("userStatus");
-
-googleLoginBtn.addEventListener("click", async () => {
-  if (auth.currentUser) {
-    await signOut(auth);
-  } else {
-    await signInWithPopup(auth, provider);
-  }
-});
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    userStatus.textContent = "Signed in as " + (user.email || user.displayName);
-    googleLoginBtn.textContent = "🚪 Sign out";
-  } else {
-    userStatus.textContent = "Not signed in";
-    googleLoginBtn.textContent = "🔐 Sign in with Google";
-  }
-});
-</script>
 </body>
 </html>
