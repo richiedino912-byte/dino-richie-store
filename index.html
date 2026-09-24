@@ -24,7 +24,6 @@
     <!-- MAIN BRAND HEADER -->
     <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            <!-- Brand Identity -->
             <div class="flex items-center gap-3 cursor-pointer" onclick="filterCategory('all')">
                 <div class="bg-[#f68b1e] text-white font-black text-xl p-2.5 rounded-xl tracking-wider shadow">DR</div>
                 <div>
@@ -33,7 +32,6 @@
                 </div>
             </div>
 
-            <!-- Search Bar -->
             <div class="flex-1 max-w-2xl hidden md:flex items-center">
                 <div class="relative w-full">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">🔍</span>
@@ -42,14 +40,12 @@
                 <button onclick="searchProducts()" class="bg-[#f68b1e] hover:bg-[#e07a14] text-white px-6 py-3 rounded-r-lg font-bold text-sm transition">Search</button>
             </div>
 
-            <!-- Quick Action / Cart Button -->
             <div class="flex items-center gap-2">
                 <button onclick="openDirectOrderModal()" class="flex items-center gap-2 bg-orange-50 border border-orange-200 text-[#f68b1e] px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-orange-100 transition shadow-sm">
                     🛒 <span class="hidden sm:inline">Checkout Order</span>
                 </button>
             </div>
         </div>
-        <!-- Mobile Search Bar -->
         <div class="md:hidden px-4 pb-3 bg-white">
             <div class="flex items-center">
                 <input type="text" id="mobileSearchInput" onkeyup="searchProducts()" placeholder="Search products..." class="w-full bg-gray-100 px-4 py-2.5 rounded-l-lg text-sm focus:outline-none">
@@ -348,4 +344,6 @@
                             <div class="p-3 sm:p-4">
                                 <h3 class="font-normal text-xs sm:text-sm text-gray-800 line-clamp-2 h-9 sm:h-10">${p.name}</h3>
                                 <div class="flex items-baseline gap-2 mt-2">
-                                    <span class="font-black text-sm sm:text-base text-gray-900">₦${p.price.toLocaleS
+                                    <span class="font-black text-sm sm:text-base text-gray-900">₦${p.price.toLocaleString()}</span>
+                                    <span class="text-gray-400 line-through text-[11px]">₦${p.oldPrice.toLocaleString()}</span>
+       
